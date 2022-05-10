@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+antivirus_software:
+  name: Anti-virus software
+  price_cents: 200_00
+
+serverless_servers:
+  name: Serverless servers
+  price_cents: 1000_00

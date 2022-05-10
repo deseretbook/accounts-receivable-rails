@@ -1,0 +1,100 @@
+<p id="notice"><%= notice %></p>
+<!-- This example requires Tailwind CSS v2.0+ -->
+<div class="bg-white shadow overflow-hidden sm:rounded-lg">
+  <div class="px-4 py-5 sm:px-6">
+    <h3 class="text-lg leading-6 font-medium text-gray-900">
+      Invoice #<%= @invoice.id%>
+    </h3>
+    <p class="mt-1 max-w-2xl text-sm text-gray-500">
+      <%= @invoice.note %></p>
+    </p>
+  </div>
+  <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
+    <dl class="sm:divide-y sm:divide-gray-200">
+      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">
+          Client
+        </dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+          <%= @client.name %></p>
+        </dd>
+      </div>
+      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">
+          Attn
+        </dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+          <%= @client.email %></p>
+        </dd>
+      </div>
+      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">
+          Due Date
+        </dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+          <%= @invoice.created_at.to_date + @invoice.net_days %>
+        </dd>
+      </div>
+    </dl>
+  </div>
+</div>
+
+<div class="mt-8 flex flex-col">
+  <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+    <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+      <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+        <table class="min-w-full divide-y divide-gray-300">
+          <thead class="bg-white">
+            <tr>
+              <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Description</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Name</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Unit Price</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Quantity</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Subtotal</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white">
+            <tr class="border-t border-gray-200">
+              <th colspan="5" scope="colgroup" class="bg-gray-50 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6">Products</th>
+            </tr>
+
+            <% @line_items[:product]&.each do |line_item| %>
+              <tr class="border-t border-gray-300">
+                <td class="py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"><%= line_item.description %></td>
+                <td class="<%= td_css %>"><%= line_item.product.name %></td>
+                <td class="<%= td_css %>"><%= to_money(line_item.price_override_cents || line_item.product.price_cents) %></td>
+                <td class="<%= td_css %>"><%= line_item.quantity %></td>
+                <td class="<%= td_css %>"><%= to_money((line_item.price_override_cents || line_item.product.price_cents) * line_item.quantity) %></td>
+              </tr>
+            <% end %>
+
+            <tr class="border-t border-gray-200">
+              <th colspan="5" scope="colgroup" class="bg-gray-50 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6">Services</th>
+            </tr>
+            <% @line_items[:service]&.each do |line_item| %>
+              <tr class="border-t border-gray-300">
+                <td class="py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"><%= line_item.description %></td>
+                <td class="<%= td_css %>"><%= line_item.service.name %></td>
+                <td class="<%= td_css %>"><%= to_money(line_item.price_override_cents || line_item.service.price_cents) %></td>
+                <td class="<%= td_css %>"><%= line_item.quantity %></td>
+                <td class="<%= td_css %>"><%= to_money((line_item.price_override_cents || line_item.service.price_cents) * line_item.quantity) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th scope="row" colspan="4" class="hidden pl-6 pr-3 pt-4 pb-4 text-right text-sm font-semibold text-gray-900 sm:table-cell md:pl-0">Total</th>
+              <th scope="row" class="pl-4 pr-3 pt-4 text-left text-sm font-semibold text-gray-900 sm:hidden">Total</th>
+              <td class="pl-3 pt-4 pb-4 text-left text-sm font-semibold text-gray-900 sm:pr-6 md:pr-0 "><%= to_money(@total) %></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="py-4">
+  <%= link_to 'Edit', edit_invoice_path(@invoice), class: btn_css %> |
+  <%= link_to 'Back', invoices_path, class: btn_css %>
+</div>

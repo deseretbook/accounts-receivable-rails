@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+build:
+  client: acme
+  net_days: 30
+  note: Invoice for writing software for Acme
+
+refactor:
+  client: acme
+  net_days: 30
+  note: Invoice for refactoring software for Acme

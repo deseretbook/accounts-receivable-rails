@@ -1,0 +1,32 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+build_programmer_1:
+  invoice: build
+  service: programming
+  quantity: 40
+  description: Amber's quality programming
+
+build_programmer_2:
+  invoice: build
+  service: programming
+  price_override_cents: 40_00
+  quantity: 40
+  description: Justin's discount programming
+
+build_servers:
+  invoice: build
+  product: serverless_servers
+  quantity: 20
+  description: Enough serverless hardware to achieve web-scale
+
+refactor_consultant:
+  invoice: refactor
+  service: refactoring
+  quantity: 40
+  description: Megan fixing previous discount programming
+
+refactor_antivirus:
+  invoice: refactor
+  product: antivirus_software
+  quantity: 1
+  description: Anti-virus software subscription
