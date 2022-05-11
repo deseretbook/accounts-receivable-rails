@@ -8,6 +8,7 @@ gem "jsbundling-rails", "~> 1.0"
 gem "cssbundling-rails", "~> 1.0"
 gem "turbo-rails", "~> 1.0"
 gem "sprockets-rails", "~> 3.4"
+gem "money"
 
 group :development, :test do
   gem "pry-rails"

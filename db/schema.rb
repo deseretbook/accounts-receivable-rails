@@ -15,16 +15,16 @@ ActiveRecord::Schema.define(version: 2017_09_11_004400) do
   create_table "clients", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "invoices", force: :cascade do |t|
     t.integer "client_id", null: false
     t.integer "net_days", default: 30, null: false
     t.string "note"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["client_id"], name: "index_invoices_on_client_id"
   end
 
@@ -35,8 +35,8 @@ ActiveRecord::Schema.define(version: 2017_09_11_004400) do
     t.integer "price_override_cents"
     t.integer "quantity", default: 1, null: false
     t.string "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["invoice_id"], name: "index_line_items_on_invoice_id"
     t.index ["product_id"], name: "index_line_items_on_product_id"
     t.index ["service_id"], name: "index_line_items_on_service_id"
@@ -45,15 +45,15 @@ ActiveRecord::Schema.define(version: 2017_09_11_004400) do
   create_table "products", force: :cascade do |t|
     t.string "name", null: false
     t.integer "price_cents", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "services", force: :cascade do |t|
     t.string "name", null: false
     t.integer "price_cents", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   add_foreign_key "invoices", "clients"
